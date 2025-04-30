@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Estimate Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    label, input, select { display: block; margin-top: 10px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <h2>Get an Estimate</h2>
+
+  <form id="estimateForm">
+    <label>Service Type:
+      <select id="serviceType" required>
+        <option value="">--Select--</option>
+        <option value="web">Web Development</option>
+        <option value="app">Mobile App Development</option>
+        <option value="design">UI/UX Design</option>
+      </select>
+    </label>
+
+    <label>Estimated Hours:
+      <input type="number" id="hours" min="1" required>
+    </label>
+
+    <label>Hourly Rate (INR):
+      <input type="number" id="rate" min="1" value="500" required>
+    </label>
+
+    <button type="submit">Calculate Estimate</button>
+  </form>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    document.getElementById("estimateForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const service = document.getElementById("serviceType").value;
+      const hours = parseFloat(document.getElementById("hours").value);
+      const rate = parseFloat(document.getElementById("rate").value);
+      
+      if (!service || !hours || !rate) {
+        alert("Please fill all fields");
+        return;
+      }
+
+      const total = hours * rate;
+      document.getElementById("result").textContent = 
+        `Estimated cost for ${service.replace(/^\w/, c => c.toUpperCase())} is ₹${total.toLocaleString()}`;
+    });
+  </script>
+
+</body>
+</html>
